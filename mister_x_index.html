@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ミスターXからの挑戦状</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#101318;color:#f1f0ec;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",sans-serif;line-height:1.75}main{max-width:780px;margin:auto;padding:22px 16px 55px}header{text-align:center;padding:16px 0}h1{font-size:clamp(24px,6vw,36px);letter-spacing:.06em}h2{font-size:23px;margin:10px 0}.eyebrow{color:#e4b985;font-size:13px;letter-spacing:.1em}.panel{border:1px solid #43464d;background:#1c2027;border-radius:12px;padding:18px;margin-top:16px}.photo{width:100%;height:auto;max-height:65vh;object-fit:contain;background:#0a0c0f;border-radius:8px}.note{color:#c5c8ce;font-size:14px}.warning{border-left:3px solid #d7aa6d;padding-left:12px}.buttons{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}button{font:inherit;min-height:50px;border:1px solid #a7a8ac;border-radius:9px;background:#303843;color:white;padding:10px 18px;flex:1;cursor:pointer}button.primary{background:#8e2d2d;border-color:#bb6262;font-weight:700}button:disabled{opacity:.4}#status{font-size:14px;color:#c6c7cb}footer{font-size:12px;color:#a9acb2;text-align:center;margin-top:36px}.hidden{display:none}.tag{display:inline-block;font-size:12px;color:#f5cf96;border:1px solid #b89c73;border-radius:4px;padding:2px 7px;margin-bottom:8px}#imgFallback{padding:25px 10px;text-align:center;color:#d0b08d;border:1px dashed #9b8061;border-radius:8px}#imageLink{display:block;color:#c6dafa;word-break:break-all;font-size:13px;margin-top:6px}
+</style>
+</head><body><main>
+<header><div class="eyebrow">資料閲覧・経路比較</div><h1>ミスターXからの挑戦状</h1><p class="note">資料を一つずつ読み進め、確認できた情報と仮説を区別して考えてください。</p></header>
+<section class="panel"><div id="status" aria-live="polite"></div><div class="tag" id="kind"></div><h2 id="heading"></h2><img class="photo" id="photo" alt="資料画像"><div id="imgFallback" class="hidden">画像を読み込めませんでした。GitHub上のファイル名・拡張子を確認してください。<a id="imageLink" target="_blank" rel="noopener"></a></div><p id="description"></p><p id="caution" class="note warning"></p><div class="buttons"><button id="next" class="primary">次の資料へ →</button></div></section>
+<footer>製作：恋する魔女 ／ プログラム：ChatGPT ／ グラフィック：ChatGPT<br>※実在事件を題材にした検証資料です。再現画像や経路案は確定事実を意味しません。</footer>
+</main>
+<script>
+'use strict';
+// 画像は index.html と同じ階層に置いてください。拡張子の大文字・小文字を一致させます。
+const slides=[
+ ['mister_x_01_title.PNG','はじめに','案内','これは事件の経緯と複数の移動経路を検討するための資料です。','画像や経路案から、特定の人物の行動を断定することはできません。'],
+ ['mister_x_02_saizeriya.PNG','当時の店舗周辺','場所資料','事件当時にサイゼリヤがあったとされる場所を確認します。','店舗の存在や当時の状況は別途資料で確認する必要があります。'],
+ ['mister_x_03_yasaka_entrance.PNG','八坂公園・正面出入り口','場所資料','八坂公園の正面出入り口の位置と周囲の様子を確認します。','現在の写真と事件当時の状況は異なる場合があります。'],
+ ['mister_x_04_yasaka_baseball.PNG','八坂公園・野球場側','再現画像','野球場北側出入り口を示す資料です。','当時の様子を想定した再現画像です。照明や風景を史実として扱わないでください。'],
+ ['mister_x_05_convenience_A.PNG','コンビニA店','再現画像','コンビニA店に関する画像を確認します。','画像に記載された時刻は、独立して裏付けが確認できるまで確定事実と区別します。'],
+ ['mister_x_06_convenience_B.PNG','コンビニB店','再現画像','コンビニB店周辺の様子を確認します。ここから先は経路の比較検証に移ります。','当時の様子を想定した再現画像です。'],
+ ['mister_x_12_discovery_scene.PNG','発見現場','場所資料','発見現場周辺の道路や土地の様子を確認します。','画像そのものから発見時刻を確定することはできません。'],
+ ['mister_x_07_left_shortest_route.PNG','左方向・最短ルート','経路仮説','コンビニB店を左方向へ出る場合の最短経路案を確認します。','地図アプリの推定経路です。実際の移動を示す証拠ではありません。'],
+ ['mister_x_08_left_bridge_west.PNG','左方向・橋を経由するルート','経路仮説','左方向へ出て、最後に橋を渡り、西向きになる経路案を比較します。','橋の通過や車の向きは検証条件であり、事実認定ではありません。'],
+ ['mister_x_09_right_shortest_route.PNG','右方向・最短ルート','経路仮説','コンビニB店を右方向へ出る場合の最短経路案を確認します。','表示される時間は地図アプリの推定であり、事件当時の実測ではありません。'],
+ ['mister_x_10_right_via_yasaka.PNG','右方向・八坂公園経由','経路仮説','右方向へ出て八坂公園を経由する案を確認します。','この経路を実際に通ったと断定するものではありません。'],
+ ['mister_x_11_walking_route.PNG','徒歩で移動した場合','経路仮説','コンビニB店から発見現場方面まで、徒歩で移動した場合の時間と距離を検討します。','徒歩移動は比較用の仮定です。実際に歩いたという証拠ではありません。'],
+ ['mister_x_13_prepaid_card.PNG','自転車の前籠に残されたカード','再現画像','最後の資料です。自転車の前籠に残されたとされるプリペイドカードを再現しています。','カードの銘柄・模様・発見時の細かな配置は不明です。画像は再現であり、現物写真ではありません。']
+];
+let index=0;
+const el=id=>document.getElementById(id);
+function render(){const [file,title,kind,desc,caution]=slides[index];el('status').textContent=`資料 ${index+1} / ${slides.length}`;el('heading').textContent=title;el('kind').textContent=kind;el('description').textContent=desc;el('caution').textContent=caution;el('imgFallback').classList.add('hidden');el('photo').classList.remove('hidden');el('photo').alt=title;el('photo').src=encodeURIComponent(file);el('imageLink').href=encodeURIComponent(file);el('imageLink').textContent=file;el('next').textContent=index===slides.length-1?'最初から見る ↻':'次の資料へ →';window.scrollTo({top:0,behavior:'instant'});}
+el('photo').addEventListener('error',()=>{el('photo').classList.add('hidden');el('imgFallback').classList.remove('hidden');});
+el('next').addEventListener('click',()=>{index=(index+1)%slides.length;render();});render();
+</script></body></html>
