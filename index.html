@@ -4,11 +4,11 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>ミスターXからの挑戦状</title>
 <style>
-:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#101318;color:#f1f0ec;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",sans-serif;line-height:1.75}main{max-width:780px;margin:auto;padding:22px 16px 55px}header{text-align:center;padding:16px 0}h1{font-size:clamp(24px,6vw,36px);letter-spacing:.06em}h2{font-size:23px;margin:10px 0}.eyebrow{color:#e4b985;font-size:13px;letter-spacing:.1em}.panel{border:1px solid #43464d;background:#1c2027;border-radius:12px;padding:18px;margin-top:16px}.photo{width:100%;height:auto;max-height:65vh;object-fit:contain;background:#0a0c0f;border-radius:8px}.note{color:#c5c8ce;font-size:14px}.warning{border-left:3px solid #d7aa6d;padding-left:12px}.buttons{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}button{font:inherit;min-height:50px;border:1px solid #a7a8ac;border-radius:9px;background:#303843;color:white;padding:10px 18px;flex:1;cursor:pointer}button.primary{background:#8e2d2d;border-color:#bb6262;font-weight:700}button:disabled{opacity:.4}#status{font-size:14px;color:#c6c7cb}footer{font-size:12px;color:#a9acb2;text-align:center;margin-top:36px}.hidden{display:none}.tag{display:inline-block;font-size:12px;color:#f5cf96;border:1px solid #b89c73;border-radius:4px;padding:2px 7px;margin-bottom:8px}#imgFallback{padding:25px 10px;text-align:center;color:#d0b08d;border:1px dashed #9b8061;border-radius:8px}#imageLink{display:block;color:#c6dafa;word-break:break-all;font-size:13px;margin-top:6px}
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#101318;color:#f1f0ec;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",sans-serif;line-height:1.75}main{max-width:780px;margin:auto;padding:22px 16px 55px}header{text-align:center;padding:16px 0}h1{font-size:clamp(24px,6vw,36px);letter-spacing:.06em}h2{font-size:23px;margin:10px 0}.eyebrow{color:#e4b985;font-size:13px;letter-spacing:.1em}.panel{border:1px solid #43464d;background:#1c2027;border-radius:12px;padding:18px;margin-top:16px}.photo{width:100%;height:auto;max-height:65vh;object-fit:contain;background:#0a0c0f;border-radius:8px}.note{color:#c5c8ce;font-size:14px}.warning{border-left:3px solid #d7aa6d;padding-left:12px}.buttons{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}button{font:inherit;min-height:50px;border:1px solid #a7a8ac;border-radius:9px;background:#303843;color:white;padding:10px 18px;flex:1;cursor:pointer}button.primary{background:#8e2d2d;border-color:#bb6262;font-weight:700}button:disabled{opacity:.4}#status{font-size:14px;color:#c6c7cb}footer{font-size:12px;color:#a9acb2;text-align:center;margin-top:36px}.hidden{display:none}.tag{display:inline-block;font-size:12px;color:#f5cf96;border:1px solid #b89c73;border-radius:4px;padding:2px 7px;margin-bottom:8px}#imgFallback{padding:25px 10px;text-align:center;color:#d0b08d;border:1px dashed #9b8061;border-radius:8px}#imageLink{display:block;color:#c6dafa;word-break:break-all;font-size:13px;margin-top:6px}#timeline{white-space:pre-line}
 </style>
 </head><body><main>
 <header><div class="eyebrow">資料閲覧・経路比較</div><h1>ミスターXからの挑戦状</h1><p class="note">資料を一つずつ読み進め、確認できた情報と仮説を区別して考えてください。</p></header>
-<section class="panel"><div id="status" aria-live="polite"></div><div class="tag" id="kind"></div><h2 id="heading"></h2><img class="photo" id="photo" alt="資料画像"><div id="imgFallback" class="hidden">画像を読み込めませんでした。GitHub上のファイル名・拡張子を確認してください。<a id="imageLink" target="_blank" rel="noopener"></a></div><p id="description"></p><p id="caution" class="note warning"></p><div class="buttons"><button id="next" class="primary">次の資料へ →</button></div></section>
+<section class="panel"><div id="status" aria-live="polite"></div><div class="tag" id="kind"></div><h2 id="heading"></h2><img class="photo" id="photo" alt="資料画像"><div id="imgFallback" class="hidden">画像を読み込めませんでした。GitHub上のファイル名・拡張子を確認してください。<a id="imageLink" target="_blank" rel="noopener"></a></div><p id="description"></p><div id="timeline" class="note"></div><p id="caution" class="note warning"></p><div class="buttons"><button id="next" class="primary">次の資料へ →</button></div></section>
 <footer>製作：恋する魔女 ／ プログラム：ChatGPT ／ グラフィック：ChatGPT<br>※実在事件を題材にした検証資料です。再現画像や経路案は確定事実を意味しません。</footer>
 </main>
 <script>
@@ -29,9 +29,38 @@ const slides=[
  ['mister_x_11_walking_route.PNG','徒歩で移動した場合','経路仮説','コンビニB店から発見現場方面まで、徒歩で移動した場合の時間と距離を検討します。','徒歩移動は比較用の仮定です。実際に歩いたという証拠ではありません。'],
  ['mister_x_13_prepaid_card.PNG','自転車の前籠に残されたカード','再現画像','最後の資料です。自転車の前籠に残されたとされるプリペイドカードを再現しています。','カードの銘柄・模様・発見時の細かな配置は不明です。画像は再現であり、現物写真ではありません。']
 ];
+ const timelines=[
+
+'資料の案内',
+
+'時刻：確認中',
+
+'時刻：確認中',
+
+'時刻：確認中',
+
+'時刻：確認中',
+
+'時刻：確認中',
+
+'2004年6月20日 午前7時前ごろ。農道脇で被害者が発見されたと報じられています。',
+
+'経路比較：左方向・最短ルート',
+
+'経路比較：左方向・橋経由',
+
+'経路比較：右方向・最短ルート',
+
+'経路比較：右方向・八坂公園経由',
+
+'経路比較：徒歩移動の場合',
+
+'【製作者・恋する魔女からの問いかけ】\n\nコンビニA店では購入できなかったとされるプリペイドカード。しかし、その後、被害者の自転車の前籠からカードが発見されたと報じられています。\n\n① なぜ、購入できなかったカードが後になって前籠にあったのでしょうか？\n\n② カードを前籠に入れたのは被害者本人でしょうか。それとも別の誰かでしょうか？\n\n③ そもそも、そのカードは被害者本人の持ち物だったのでしょうか？\n\nこれらは製作者自身の疑問であり、誰かの関与を断定するものではありません。\n\n皆さんはどう考えますか？'
+
+];
 let index=0;
 const el=id=>document.getElementById(id);
-function render(){const [file,title,kind,desc,caution]=slides[index];el('status').textContent=`資料 ${index+1} / ${slides.length}`;el('heading').textContent=title;el('kind').textContent=kind;el('description').textContent=desc;el('caution').textContent=caution;el('imgFallback').classList.add('hidden');el('photo').classList.remove('hidden');el('photo').alt=title;el('photo').src=encodeURIComponent(file);el('imageLink').href=encodeURIComponent(file);el('imageLink').textContent=file;el('next').textContent=index===slides.length-1?'最初から見る ↻':'次の資料へ →';window.scrollTo({top:0,behavior:'instant'});}
+function render(){const [file,title,kind,desc,caution]=slides[index];el('status').textContent=`資料 ${index+1} / ${slides.length}`;el('heading').textContent=title;el('kind').textContent=kind;el('description').textContent=desc;el('timeline').textContent=timelines[index]||'時系列：確認できる時刻なし';中';el('caution').textContent=caution;el('imgFallback').classList.add('hidden');el('photo').classList.remove('hidden');el('photo').alt=title;el('photo').src=encodeURIComponent(file);el('imageLink').href=encodeURIComponent(file);el('imageLink').textContent=file;el('next').textContent=index===slides.length-1?'最初から見る ↻':'次の資料へ →';window.scrollTo({top:0,behavior:'instant'});}
 el('photo').addEventListener('error',()=>{el('photo').classList.add('hidden');el('imgFallback').classList.remove('hidden');});
 el('next').addEventListener('click',()=>{index=(index+1)%slides.length;render();});render();
 </script></body></html>
