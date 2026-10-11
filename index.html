@@ -60,7 +60,7 @@ const slides=[
 ];
 let index=0;
 const el=id=>document.getElementById(id);
-function render(){const [file,title,kind,desc,caution]=slides[index];el('status').textContent=`資料 ${index+1} / ${slides.length}`;el('heading').textContent=title;el('kind').textContent=kind;el('description').textContent=desc;el('timeline').textContent=timelines[index]||'時系列：確認できる時刻なし';中';el('caution').textContent=caution;el('imgFallback').classList.add('hidden');el('photo').classList.remove('hidden');el('photo').alt=title;el('photo').src=encodeURIComponent(file);el('imageLink').href=encodeURIComponent(file);el('imageLink').textContent=file;el('next').textContent=index===slides.length-1?'最初から見る ↻':'次の資料へ →';window.scrollTo({top:0,behavior:'instant'});}
+function render(){const [file,title,kind,desc,caution]=slides[index];el('status').textContent=`資料 ${index+1} / ${slides.length}`;el('heading').textContent=title;el('kind').textContent=kind;el('description').textContent=desc;el('timeline').textContent=timelines[index]||'時系列：確認できる時刻なし';el('caution').textContent=caution;el('imgFallback').classList.add('hidden');el('photo').classList.remove('hidden');el('photo').alt=title;el('photo').src=encodeURIComponent(file);el('imageLink').href=encodeURIComponent(file);el('imageLink').textContent=file;el('next').textContent=index===slides.length-1?'最初から見る ↻':'次の資料へ →';window.scrollTo({top:0,behavior:'instant'});}
 el('photo').addEventListener('error',()=>{el('photo').classList.add('hidden');el('imgFallback').classList.remove('hidden');});
 el('next').addEventListener('click',()=>{index=(index+1)%slides.length;render();});render();
 </script></body></html>
